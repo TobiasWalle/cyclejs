@@ -1,15 +1,13 @@
-import {Observable} from 'rxjs/Rx';
+import * as most from 'most';
 import {setAdapt} from '@cycle/run/lib/adapt';
 
-import {mockTimeSource} from '../rxjs';
+import {mockTimeSource} from '../src/index';
 
-describe('rxjs', () => {
-  before(() => setAdapt(stream => Observable.from(stream)));
-
+describe('most', () => {
   it('works with @cycle/time', done => {
     const Time = mockTimeSource();
 
-    const actual$ = Observable.of('a').let(Time.delay(60));
+    const actual$ = most.of('a').thru(Time.delay(60));
     const expected$ = Time.diagram(`---(a|)`);
 
     Time.assertEqual(actual$, expected$);

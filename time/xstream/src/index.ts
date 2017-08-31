@@ -1,6 +1,5 @@
+import {timeDriverUntyped, mockTimeSourceUntyped, Frame, Comparator, OperatorArgs} from '@cycle/time-common';
 import {Stream} from 'xstream';
-import {Frame} from './animation-frames';
-import {Comparator, OperatorArgs} from './types';
 
 export type Operator = <T>(stream: Stream<T>) => Stream<T>;
 
@@ -23,4 +22,12 @@ export interface MockTimeSource extends TimeSource {
     comparator?: Comparator,
   ): void;
   run(cb?: (err?: Error) => void): void;
+}
+
+export function mockTimeSource(args?: Object): MockTimeSource {
+  return mockTimeSourceUntyped(args);
+}
+
+export function timeDriver(sink: any): TimeSource {
+  return timeDriverUntyped(sink);
 }

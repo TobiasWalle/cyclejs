@@ -3,16 +3,13 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import {setAdapt} from '@cycle/run/lib/adapt';
 
-import {mockTimeSource as mockTimeSourceUntyped} from './src/mock-time-source';
-import {timeDriver as timeDriverUntyped} from './src/time-driver';
-import {Frame} from './src/animation-frames';
-import {Comparator, OperatorArgs} from './src/types';
+import {mockTimeSourceUntyped, timeDriverUntyped, Frame, Comparator, OperatorArgs} from '@cycle/time-common';
 
 setAdapt(stream => Observable.from(stream));
 
-type Operator = <T>(observable: Observable<T>) => Observable<T>;
+export type Operator = <T>(observable: Observable<T>) => Observable<T>;
 
-interface TimeSource {
+export interface TimeSource {
   createOperator<T>(): OperatorArgs<T>;
   animationFrames(): Observable<Frame>;
   delay(delayTime: number): Operator;
@@ -22,7 +19,7 @@ interface TimeSource {
   throttleAnimation: Operator;
 }
 
-interface MockTimeSource extends TimeSource {
+export interface MockTimeSource extends TimeSource {
   diagram(str: string, values?: Object): Observable<any>;
   record(observable: Observable<any>): Observable<Array<any>>;
   assertEqual(
@@ -33,12 +30,10 @@ interface MockTimeSource extends TimeSource {
   run(cb?: (err?: Error) => void): void;
 }
 
-function mockTimeSource(args?: Object): MockTimeSource {
+export function mockTimeSource(args?: Object): MockTimeSource {
   return mockTimeSourceUntyped(args);
 }
 
-function timeDriver(sink: any): TimeSource {
+export function timeDriver(sink: any): TimeSource {
   return timeDriverUntyped(sink);
 }
-
-export {Operator, TimeSource, timeDriver, MockTimeSource, mockTimeSource};

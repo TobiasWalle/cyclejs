@@ -1,12 +1,8 @@
-import {mockTimeSource} from '../';
+import {mockTimeSource} from '../src/index';
 import {setAdapt} from '@cycle/run/lib/adapt';
 import xs from 'xstream';
 
-setAdapt(stream => stream);
-
 describe('xstream', () => {
-  before(() => setAdapt(stream => stream));
-
   describe('of', () => {
     it('emits the given values immediately', done => {
       const Time = mockTimeSource();
