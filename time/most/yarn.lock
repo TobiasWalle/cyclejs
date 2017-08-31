@@ -18,7 +18,7 @@
     xstream "10.x"
 
 "@cycle/time-common@file:../common":
-  version "0.10.0-beta.0"
+  version "0.9.1"
   dependencies:
     "@cycle/run" "3.x"
     combine-errors "3.0.x"

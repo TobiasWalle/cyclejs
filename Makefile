@@ -38,9 +38,10 @@ setup :
 	@echo "(root): yarn install"
 	@yarn install
 	@echo ""
-	@while read d ; do \
+	@rootDir=$$(pwd) ; \
+	while read d ; do \
 		echo "$$d: yarn install" ;\
-		cd $$d ; yarn install ; cd .. ;\
+		cd "./$$d" ; yarn install ; cd $$rootDir ;\
 		echo "" ;\
 	done < .scripts/RELEASABLE_PACKAGES
 	@make lib
